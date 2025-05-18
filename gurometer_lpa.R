@@ -89,7 +89,9 @@ df_avg %>% select(Galaxy.Brainness:Moral.Grandstanding) %>%
 
 
 ##### Create a spider plot of the profiles using ggradar
-factorgroups <- data.frame(Parameter = c("Galaxy.Brainness", "Revolutionary.Theories", "Pseudo.Profound.Bullshit", "Anti.Establishment", 
+
+# This determines the arrangement of the different dimensions around the plot
+factors <- data.frame(Parameter = c("Galaxy.Brainness", "Revolutionary.Theories", "Pseudo.Profound.Bullshit", "Anti.Establishment", 
                                          "Cultishness", "Profiteering", "Grievance.Mongering", "Conspiracy.Mongering", "Cassandra.Complex", 
                                          "Self.Aggrandisement.and.Narcissism",  "Moral.Grandstanding"),
                            num = seq(1:11))
@@ -100,7 +102,7 @@ df_avg %>% select(Galaxy.Brainness:Moral.Grandstanding) %>%
   mutate(Class = factor(Class)) %>% 
   filter(Category=="Means") %>% 
   select(Parameter, Estimate, Class) %>% 
-  left_join(factorgroups) %>% 
+  left_join(factors) %>% 
   arrange(num) %>% 
   mutate(Parameter = gsub("\\.", " ", Parameter) %>% str_wrap(width=10)) %>% 
   pivot_wider(id_cols=Class, names_from=Parameter, values_from=Estimate) %>% 
